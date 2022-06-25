@@ -5,6 +5,7 @@ import {Container,Button, Row,Col,Card,ButtonGroup} from 'react-bootstrap'
 import Question from './components/Question/Question';
 import Result from './components/Results/Result';
 import Tabs from './components/Tabs';
+import {FormCards,mytabs} from './components/FormCards/FormCards';
 function App() {
  //const div = createElement('div',null,'ola');
  const [currentQuestion,setCurrentQuestion]=useState(0)
@@ -30,8 +31,9 @@ let show = true ;
   }
  ]
 
+const tabs_contents = mytabs
 
-const tabs_contents = [
+/*const tabs_contents = [
   {
   id:0,
   content:"Conteudo do tab 1 ",
@@ -44,7 +46,9 @@ const tabs_contents = [
   id:2,
   content:"Conteudo do tab 3"
 },
-]
+]*/
+
+
 
 
  function NextQuestion(){
@@ -77,6 +81,7 @@ function changeTab(id:any){
    
   </Card.Body>
 </Card>
+  <FormCards/>
       </Container>
     )
   }
