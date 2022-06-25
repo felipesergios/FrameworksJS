@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { FormEvent,useState } from 'react'
 import {Form,Button} from 'react-bootstrap'
 import {Container} from 'react-bootstrap'
+import {Tab_view} from '../Tabs'
+interface TabsFormProps{
+  onSubmit: (qst:Tab_view)=>void
+}
 
+export default function FormCards({onSubmit}:TabsFormProps){
 
-export default function FormCards(){
-
-    const [tabs_count,setTabs_count]=useState('')
+    const [tabs_count,setTabs_count]=useState(0)
     const [title,setTitle]=useState('')
     const [content,setContent]=useState('')
     const mytabs = []
@@ -15,15 +18,19 @@ export default function FormCards(){
         mytabs.push({'id':tabs_count,'title':title,'content':content})
     }
     
+    function submit(e: FormEvent) {
+      e.preventDefault()
+      onSubmit({id:tabs_count,title,content})
+    }
 
     return (
 <Container style={{ width: '18rem' }}>
 
-<Form>
+<Form onSubmit={submit}>
   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
     <Form.Label>Núm.tabs</Form.Label>
     <Form.Control type="number" placeholder="insert number of tab" 
-    value={tabs_count} onChange={e=>setTabs_count(e.target.value)} />
+    value={tabs_count} onChange={e=>setTabs_count(parseInt(e.target.value))} />
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -39,7 +46,7 @@ export default function FormCards(){
     value={content} onChange={e=>setContent(e.target.value)}
     />
   </Form.Group>
-  <Button onClick={()=>{HandleForm()}}>Salva</Button>
+  <Button type="submit">Salva</Button>
 </Form>
        
 </Container>

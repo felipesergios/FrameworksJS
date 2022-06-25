@@ -20,12 +20,12 @@ const Template: ComponentStory<typeof Magic> = (args) => <Magic {...args} />;
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  tabs_contents:[{id:0,content:"Teste"},{id:1,content:"Teste 2"}]
+  tabs_contents:[{id:0,title:"Test",content:"Teste"},{id:1,title:"Test",content:"Teste 2"}]
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-    tabs_contents:[{id:0,content:"Teste 5 "},{id:1,content:"Teste  6 "}]
+    tabs_contents:[{id:0, title:"Test", content:"Teste 5 "},{id:1,title:"Test",content:"Teste  6 "}]
     
   };
 

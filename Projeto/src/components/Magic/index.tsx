@@ -1,11 +1,12 @@
 import React , {useState} from "react";
 import {Container,Card,ButtonGroup,Button} from 'react-bootstrap'
-import Tabs from "../Tabs";
+import {Tabs} from "../Tabs";
 interface MagicProps {
     tabs_contents: Array<Type>;
   }
   interface Type {
     id: number;
+    title:string,
     content: string;
   }
 export default function Magic(props:MagicProps){
@@ -30,7 +31,7 @@ return(
   
   <Card.Title></Card.Title>
   <Card.Text>
-  <Tabs id={currentTab} content={props.tabs_contents[currentTab].content}/>
+  <Tabs id={currentTab} title={props.tabs_contents[currentTab].title} content={props.tabs_contents[currentTab].content}/>
   </Card.Text>
  
 </Card.Body>
