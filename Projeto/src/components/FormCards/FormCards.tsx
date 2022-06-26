@@ -1,10 +1,14 @@
 import React, { FormEvent,useState } from 'react'
 import {Form,Button} from 'react-bootstrap'
 import {Container} from 'react-bootstrap'
+
+
 import {Tab_view} from '../Tabs'
 interface TabsFormProps{
   onSubmit: (qst:Tab_view)=>void
 }
+
+
 
 export default function FormCards({onSubmit}:TabsFormProps){
 
@@ -29,9 +33,8 @@ export default function FormCards({onSubmit}:TabsFormProps){
 
     return (
 <Container style={{ width: '18rem' }}>
-
 <Form onSubmit={submit}>
-  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" hidden>
     <Form.Label>Núm.tabs</Form.Label>
     <Form.Control type="number" placeholder="insert number of tab" 
     value={tabs_count} onChange={e=>setTabs_count(parseInt(e.target.value))} disabled/>
@@ -39,7 +42,7 @@ export default function FormCards({onSubmit}:TabsFormProps){
 
   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
     <Form.Label>Título</Form.Label>
-    <Form.Control type="text" placeholder="insert title to new tab" 
+    <Form.Control type="text" required maxLength={10} minLength={4} placeholder="insert title to new tab" 
     value={title} onChange={e=>setTitle(e.target.value)}
     />
   </Form.Group>
@@ -47,7 +50,7 @@ export default function FormCards({onSubmit}:TabsFormProps){
   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
     <Form.Label>Conteúdo</Form.Label>
     <Form.Control as="textarea" rows={3} 
-    value={content} onChange={e=>setContent(e.target.value)}
+    value={content} required onChange={e=>setContent(e.target.value)}
     />
   </Form.Group>
   <Button type="submit">Salva</Button>
@@ -55,3 +58,7 @@ export default function FormCards({onSubmit}:TabsFormProps){
 </Container>
     )
 }
+
+/*----------------------------------------------------------------
+
+*/
