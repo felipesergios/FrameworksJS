@@ -5,8 +5,9 @@ export default function useTabs(){
     const [tabs,setTabs] = useState<Tab_view[]>([])
 
     const createTabs = (qst: Tab_view) => {
-        console.log(qst)
-        setTabs([...tabs, qst])
+
+        console.log(tabs.length)
+        setTabs([...tabs, {id:tabs.length, title:qst.title,content:qst.content}])
       }
       return {tabs,createTabs}
 }
