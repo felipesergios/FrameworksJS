@@ -1,84 +1,80 @@
 <template>
-  <div className="p-3 mb-2 bg-light text-dark container">
-    <h1 className="white-text">TabComponent</h1>
-    
-    <button className="btn btn-primary" v-for="(option, index) in contents_tabs" :key="index"
-      :class="{ selected: index === index }"
-      @click="()=>{currentTabIndex=index}">
-      {{ option.index }}
-    </button>
-
-        
-
-           <div class="tabsPane">
-        <div className="p-3 mb-2 bg-light text-dark">
-         <Statement
-          v-bind="contents_tabs[currentTabIndex]"
-          :selection="currentOption"
-          @on-selection="select"
-          />
-        </div>
-        
+  <div>
+    <h1>TabComponent</h1>
+    <div>
+      <div class="tabs">
+        <TabContent
+          v-for="tabContent, i in tabs_contents"
+          :key="i"
+          :index="tabContent.id"
+          :text="tabContent.title"
+          @onChange="(val) => updateContent(val)"
+        />
       </div>
-      
     </div>
+  </div>
+  <br/>
+  <div class="content">
+    {{ tabs_contents[i].content }}
+  </div>
+  <div>
+    <AddTabVue @onChange="(title,content) => newTab(title,content)"/>
+  </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive, computed } from 'vue'
-  import Statement, { type TabsProps } from './Statement.vue'
-  
+import { ref, reactive } from "vue";
+import TabContent from "./ViewTabContent.vue";
+import AddTabVue from "./InsertTab.vue";
 
+    async function newTab(title: string, content: string){
+      console.log("chegou");      
+      let aux = {
+        title: title,
+        content: content,
+        id: increment()
+      }
+      tabs_contents.push(aux)
+    }
 
-  const contents_tabs: TabsProps[] = [
-      {
-          index:1,
-          content:"Conteudo do coisa 1"
-      },
-      {
-          index:2,
-          content:"Conteudo do coisa 2"
-      },
-      {
-          index:3,
-          content:"Conteudo do coisa 3"
-      },
-      {
-          index:4,
-          content:"Conteudo do coisa 4"
-      },
-  ]
+    function increment(){
+      return (tabs_contents.length -1) + 1
+    }
 
-  // estados reativos do componente
-  const currentTabIndex = ref(0)          // ref() é útil para tipos primitivos
-  const currentOption = ref<number>()     // como a opção inicial é undefined, é interessante definir o tipo
- 
+    function updateContent(val: number) {
+        console.log("mudou")
+        i.value = val;
+    }
 
-  /** Atualiza a opção selecionada pelo usuário. */
+    defineProps<{
+    tabButtons: string[];
+    content: string[];
+    }>();
 
+    const i = ref(0);
 
- 
+    let tabs_contents = reactive([{
+      id: 0,
+      content: "essa é a primeira TAB",
+      title: "Primeira aba"
+    },
+    {
+      id: 1,
+      content: "essa é a segunda TAB.",
+      title: "Segunda aba"
+    },])
 
 </script>
 
-<style>
-.tabsPane {
-  padding: 50px;
+<style scoped>
+.tabs{
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 10px;
+    justify-content: space-evenly;
 }
-
-.tabsPane {
-  padding: 20px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: 1px solid rgb(255, 255, 255);
-  background-color: #f0f0f0;
-}
-h1,bottom{
-    color: black;
-}
-
-.tabsNumber {
-  font-style: italic;
-  font-size: smaller;
+.content{
+    align-items: center;
+    padding-left: 10px;
 }
 </style>
